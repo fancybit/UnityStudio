@@ -40,6 +40,7 @@ namespace Unity_Studio
         public static Action<string> StatusStripUpdate;
         public static Action<int> ProgressBarMaximumAdd;
 
+
         public static void LoadAssetsFile(string fileName)
         {
             if (!assetsfileListHash.Contains(fileName))
@@ -345,11 +346,15 @@ namespace Unity_Studio
                                 asset.Text = asset.TypeString + " #" + asset.uniqueID;
                             }
                             asset.SubItems.AddRange(new[] { asset.TypeString, asset.fullSize.ToString() });
+                            
                             //处理同名文件
                             if (!exportableAssetsHash.Add((asset.TypeString + asset.Text).ToUpper()))
                             {
                                 asset.Text += " #" + asset.uniqueID;
                             }
+
+                            asset.Text += "@" + asset.m_PathID;
+
                             //处理非法文件名
                             asset.Text = FixFileName(asset.Text);
                             assetsFile.exportableAssets.Add(asset);
@@ -365,6 +370,7 @@ namespace Unity_Studio
                             {
                                 var ex = Path.GetExtension(replacename);
                                 x.Text = !string.IsNullOrEmpty(ex) ? replacename.Replace(ex, "") : replacename;
+                                x.Text += "@" + x.m_PathID;
                             }
                         });
                     }

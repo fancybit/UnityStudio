@@ -46,6 +46,7 @@ namespace Unity_Studio
             if (asset.sourceFile.ClassStructures.TryGetValue(asset.Type1, out var classStructure))
             {
                 var sb = new StringBuilder();
+                sb.AppendLine("PathID=" + asset.m_PathID);
                 ReadClassStruct(sb, classStructure.members, a_Stream);
                 return sb.ToString();
             }
